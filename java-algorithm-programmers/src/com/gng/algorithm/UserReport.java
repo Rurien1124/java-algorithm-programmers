@@ -22,7 +22,7 @@ public class UserReport {
 	 * 
 	 * @param idList 사용자 아이디 배열
 	 * @param report 신고 양식
-	 * @param reportThreshold
+	 * @param reportThreshold 정지 횟수
 	 * @return
 	 */
 	public static List<Integer> solution(String[] idList, String[] reports, int reportThreshold) {
