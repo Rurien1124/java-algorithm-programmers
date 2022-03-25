@@ -37,7 +37,7 @@ public class OpenChat {
 			recordObj.addRecord(index, record);
 		}
 		
-		// 메시지 객체를 리스트
+		// RecordObj 맵을 MessageObj 리스트로 변환
 		List<MessageObj> messageObjList = createdUidMap.keySet().stream()
 				.map(uid -> createdUidMap.get(uid))
 				.map(recordObj -> recordObj.getAllMessageObj())
