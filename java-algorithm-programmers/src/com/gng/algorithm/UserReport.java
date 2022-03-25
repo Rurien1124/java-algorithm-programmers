@@ -21,7 +21,7 @@ public class UserReport {
 	/**
 	 * 
 	 * @param idList 사용자 아이디 배열
-	 * @param report 신
+	 * @param report 신고 양식
 	 * @param reportThreshold
 	 * @return
 	 */
