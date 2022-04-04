@@ -20,24 +20,24 @@ public class UserReport {
 	
 	/**
 	 * 
-	 * @param idList »ç¿ëÀÚ ¾ÆÀÌµğ ¹è¿­
-	 * @param report ½Å°í ¾ç½Ä
-	 * @param reportThreshold Á¤Áö È½¼ö
+	 * @param idList ì‚¬ìš©ì ì•„ì´ë”” ë°°ì—´
+	 * @param report ì‹ ê³  ì–‘ì‹
+	 * @param reportThreshold ì •ì§€ íšŸìˆ˜
 	 * @return
 	 */
 	public static List<Integer> solution(String[] idList, String[] reports, int reportThreshold) {
 		/**
-		 * °¢ À¯ÀúÀÇ ½Å°í »ó´ë¸¦ Áßº¹ ¾øÀÌ ´ã±â À§ÇØ Map/Set »ç¿ë
-		 * °á°ú Ãâ·Â ½Ã ¼ø¼­ º¸ÀåÀÌ ÇÊ¿äÇÏ¹Ç·Î LinkedHashMap »ç¿ë
+		 * ê° ìœ ì €ì˜ ì‹ ê³  ìƒëŒ€ë¥¼ ì¤‘ë³µ ì—†ì´ ë‹´ê¸° ìœ„í•´ Map/Set ì‚¬ìš©
+		 * ê²°ê³¼ ì¶œë ¥ ì‹œ ìˆœì„œ ë³´ì¥ì´ í•„ìš”í•˜ë¯€ë¡œ LinkedHashMap ì‚¬ìš©
 		 */
-		// ½Å°íÇÑ »ç¶÷ ¸Ê
+		// ì‹ ê³ í•œ ì‚¬ëŒ ë§µ
 		Map<String, Set<String>> reporterMap = new LinkedHashMap<>();
-		// ½Å°íµÈ »ç¶÷ ¸Ê
+		// ì‹ ê³ ëœ ì‚¬ëŒ ë§µ
 		Map<String, Set<String>> reportedMap = new LinkedHashMap<>();
 		
 		
 		Arrays.asList(idList).forEach(id -> {
-			// SetÀ» ÀÔ·Â¹ŞÀº idÀÇ ¼ø¼­´ë·Î ÃÊ±âÈ­
+			// Setì„ ì…ë ¥ë°›ì€ idì˜ ìˆœì„œëŒ€ë¡œ ì´ˆê¸°í™”
 			reporterMap.put(id, new HashSet<>());
 			reportedMap.put(id, new HashSet<>());
 		});
@@ -47,38 +47,38 @@ public class UserReport {
 			String reporterId = reportSplit[0];
 			String reportedId = reportSplit[1];
 			
-			// ½Å°íÇÑ »ç¶÷ Ã³¸®
+			// ì‹ ê³ í•œ ì‚¬ëŒ ì²˜ë¦¬
 			Set<String> previousReporterIdSet = reporterMap.get(reporterId);
 			previousReporterIdSet.add(reportedId);
 
-			// ½Å°íÇÑ »ç¶÷ÀÇ MapÀ» ¾÷µ¥ÀÌÆ®
+			// ì‹ ê³ í•œ ì‚¬ëŒì˜ Mapì„ ì—…ë°ì´íŠ¸
 			reporterMap.put(reporterId, previousReporterIdSet);
 			
-			// ½Å°íµÈ »ó´ë Ã³¸®
+			// ì‹ ê³ ëœ ìƒëŒ€ ì²˜ë¦¬
 			Set<String> previousReportedIdSet = reportedMap.get(reportedId);
 			previousReportedIdSet.add(reporterId);
 			
-			// ½Å°íµÈ »ó´ëÀÇ MapÀ» ¾÷µ¥ÀÌÆ®
+			// ì‹ ê³ ëœ ìƒëŒ€ì˜ Mapì„ ì—…ë°ì´íŠ¸
 			reportedMap.put(reportedId, previousReportedIdSet);
 		});
 		
-		// ½Å°í °á°ú¸¦ ´ãÀ» ¸®½ºÆ®
+		// ì‹ ê³  ê²°ê³¼ë¥¼ ë‹´ì„ ë¦¬ìŠ¤íŠ¸
 		List<Integer> reportCountList = IntStream.of(new int[idList.length])
 				.boxed()
 				.collect(Collectors.toList());
 
-		// ½Å°í È½¼ö¸¦ ¸®½ºÆ® ÇüÅÂ·Î º¯°æ
+		// ì‹ ê³  íšŸìˆ˜ë¥¼ ë¦¬ìŠ¤íŠ¸ í˜•íƒœë¡œ ë³€ê²½
 		reportedMap.keySet().forEach(reportedId -> {
-					// Á¤Áö È½¼ö Àû¿ë
+					// ì •ì§€ íšŸìˆ˜ ì ìš©
 					int reportedCount = reportedMap.get(reportedId).size() - (reportThreshold - 1);
 
-					// Á¤Áö ´ë»óÀÎÁö È®ÀÎ
+					// ì •ì§€ ëŒ€ìƒì¸ì§€ í™•ì¸
 					if(reportedCount > 0) {
 						AtomicInteger index = new AtomicInteger();
 						
 						reporterMap.keySet().forEach(reporterId -> {
 							if(reporterMap.get(reporterId).contains(reportedId)) {
-								// ½Å°íÀÚÀÇ Set¿¡ Á¤ÁöµÈ ´ë»óÀÌ ÀÖÀ¸¸é + 1
+								// ì‹ ê³ ìì˜ Setì— ì •ì§€ëœ ëŒ€ìƒì´ ìˆìœ¼ë©´ + 1
 								reportCountList.set(index.get(), reportCountList.get(index.get()) + 1);
 							}
 							

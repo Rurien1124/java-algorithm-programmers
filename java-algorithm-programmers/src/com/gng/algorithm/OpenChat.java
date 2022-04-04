@@ -20,24 +20,24 @@ public class OpenChat {
 	public List<String> solution(String[] records) {
 		List<String> recordList = Arrays.asList(records);
 
-		// RecordObj¸¦ uid´ç ÇÏ³ª¸¸ »ı¼ºÇÏµµ·Ï ÇÏ±â À§ÇÑ ¸Ê
+		// RecordObjë¥¼ uidë‹¹ í•˜ë‚˜ë§Œ ìƒì„±í•˜ë„ë¡ í•˜ê¸° ìœ„í•œ ë§µ
 		Map<String, RecordObj> createdUidMap = new HashMap<>();
 		
 		for(int index=0; index < recordList.size(); index++) {
 			String record = recordList.get(index);
 			String uid = RecordObj.getUidFromString(record);
 			
-			// ÇØ´ç uidÀÇ RecordObj°¡ ¾øÀ¸¸é »ı¼º
+			// í•´ë‹¹ uidì˜ RecordObjê°€ ì—†ìœ¼ë©´ ìƒì„±
 			if(!createdUidMap.containsKey(uid)) {
 				createdUidMap.put(uid, new RecordObj());
 			}
 			
-			// ¸í·É¾î ÀÔ·Â
+			// ëª…ë ¹ì–´ ì…ë ¥
 			RecordObj recordObj = createdUidMap.get(uid);
 			recordObj.addRecord(index, record);
 		}
 		
-		// RecordObj ¸ÊÀ» MessageObj ¸®½ºÆ®·Î º¯È¯
+		// RecordObj ë§µì„ MessageObj ë¦¬ìŠ¤íŠ¸ë¡œ ë³€í™˜
 		List<MessageObj> messageObjList = createdUidMap.keySet().stream()
 				.map(uid -> createdUidMap.get(uid))
 				.map(recordObj -> recordObj.getAllMessageObj())
@@ -58,7 +58,7 @@ public class OpenChat {
 		private String name;
 		
 		public void addRecord(int index, String record) {
-			// ¸í·É¾î ¼³Á¤
+			// ëª…ë ¹ì–´ ì„¤ì •
 			String[] recordSplit = record.split(" ");
 			CommandType commandType = CommandType.of(recordSplit[0]);
 			
@@ -70,7 +70,7 @@ public class OpenChat {
 			}
 			
 			if(!commandType.equals(CommandType.COMMAND_CHANGE)){
-				// ÇöÀç ¸í·ÉÀÇ ÀÎµ¦½º/¸í·É ¼³Á¤
+				// í˜„ì¬ ëª…ë ¹ì˜ ì¸ë±ìŠ¤/ëª…ë ¹ ì„¤ì •
 				messageIndexList.add(index);
 				commandList.add(commandType);
 			}
@@ -82,7 +82,7 @@ public class OpenChat {
 		}
 		
 		/**
-		 * ¸Ş½ÃÁö¿¡¼­ uid °¡Á®¿À±â
+		 * ë©”ì‹œì§€ì—ì„œ uid ê°€ì ¸ì˜¤ê¸°
 		 * @param records
 		 * @return
 		 */
@@ -93,7 +93,7 @@ public class OpenChat {
 		}
 		
 		/**
-		 * ÀüÃ¼ ¸Ş½ÃÁö °´Ã¼ ¹İÈ¯
+		 * ì „ì²´ ë©”ì‹œì§€ ê°ì²´ ë°˜í™˜
 		 * @param index
 		 * @return
 		 */
@@ -147,8 +147,8 @@ public class OpenChat {
 	}
 	
 	public enum CommandType {
-		COMMAND_ENTER("Enter", "´ÔÀÌ µé¾î¿Ô½À´Ï´Ù."),
-		COMMAND_LEAVE("Leave", "´ÔÀÌ ³ª°¬½À´Ï´Ù."),
+		COMMAND_ENTER("Enter", "ë‹˜ì´ ë“¤ì–´ì™”ìŠµë‹ˆë‹¤."),
+		COMMAND_LEAVE("Leave", "ë‹˜ì´ ë‚˜ê°”ìŠµë‹ˆë‹¤."),
 		COMMAND_CHANGE("Change", "");
 		
 		private String command;
