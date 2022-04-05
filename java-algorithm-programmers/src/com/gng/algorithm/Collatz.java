@@ -10,13 +10,13 @@ public class Collatz {
 		int answer = 0;
 		
 		while(true) {
-			// 시도횟수 추가
-			answer++;
-			
 			// 1일경우 바로 종료
 			if(num == 1) {
 				break;
 			}
+			
+			// 시도횟수 추가
+			answer++;
 			
 			// 짝수/홀수 체크하여 계산 실행
 			if(num % 2 == 0) {
@@ -42,7 +42,7 @@ public class Collatz {
 	}
 	
 	public static void main(String[] args) {
-		int num = 626331;
+		int num = 1;
 		
 		System.out.println(new Collatz().solution(num));
 	}
